@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="eip-scatter-gather-suite.xml" />
+	<munit:test name="eip-scatter-gatherFlow-test" doc:id="efaffd41-468f-4d8f-97c7-b099776badb4" >
+		<munit:behavior >
+			<munit-tools:spy doc:name="Spy Add Reference" doc:id="9031b88c-49fe-456c-846d-b0571f2b370e" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="d84fc701-44f1-4683-b667-8ce82a72c306" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="8cb53bd4-ba39-4012-b47b-1e1a0d74b702" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import eipscattergatherFlowtest::spy_assert_payload8
+---
+spy_assert_payload8::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="0e10d1f1-8d84-481e-8bbb-9c5af2644b9f" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import eipscattergatherFlowtest::spy_assert_payload9
+---
+spy_assert_payload9::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit-tools:spy doc:name="Spy Product Reference" doc:id="c8824269-e45f-42cd-baca-2a66758ee95f" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="88202de7-edd5-4fff-aebe-408d03d1a17f" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="8af2ba3d-8a23-4e2a-b640-fd75fa841b05" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import eipscattergatherFlowtest::spy_assert_payload10
+---
+spy_assert_payload10::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="1985b2e8-5efd-4a79-bb26-aa2b5e3a4c0a" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import eipscattergatherFlowtest::spy_assert_payload11
+---
+spy_assert_payload11::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit-tools:spy doc:name="Spy Difference Reference" doc:id="717911d2-7bcf-45b7-b086-4e0ac6c361d0" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="48c78abb-6092-4bff-8036-07f4d5d9d4c9" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="3208157e-f783-43a1-bc31-140458ff4e24" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import eipscattergatherFlowtest::spy_assert_payload12
+---
+spy_assert_payload12::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="c7130f43-eb76-473e-87c6-67122ee13d7a" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import eipscattergatherFlowtest::spy_assert_payload13
+---
+spy_assert_payload13::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit-tools:spy doc:name="Spy AggregatedData" doc:id="5ab0ade3-cb64-4b3f-a521-364dd5b079c4" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="d0f3ad03-2e0a-435e-8439-788d99428b99" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="530fec4d-4e37-49a9-b896-015c9b3d2d93" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import eipscattergatherFlowtest::spy_assert_payload14
+---
+spy_assert_payload14::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="c8713832-3876-47e3-b4d4-54f708b21cea" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import eipscattergatherFlowtest::spy_assert_payload15
+---
+spy_assert_payload15::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit:set-event doc:name="Set Input" doc:id="a11e13d1-e158-4b59-a63a-cb1672a52579" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://eipscattergatherFlowtest/set-event_payload1.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://eipscattergatherFlowtest/set-event_attributes1.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to eip-scatter-gatherFlow" doc:id="c7c8d45d-80e4-4465-b57c-9042d0dad98c" name="eip-scatter-gatherFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="465cf316-3952-4812-b1b1-78390756fcae" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import eipscattergatherFlowtest::assert_expression_payload1
+---
+assert_expression_payload1::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Log input paylaod" doc:id="5f920364-9755-4274-ab41-c305cb66f07a" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f949423a-0fc0-4940-80d7-025eb9e1a7f5" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify ScatterGatherOutput" doc:id="061bc049-0d38-4462-9da6-46220e99dd5f" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="2556668f-606e-4b35-a744-b7a9fb73a51d" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Add Reference" doc:id="aca9211b-9774-4243-a108-9516d5fab80b" processor="flow-ref" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="d84fc701-44f1-4683-b667-8ce82a72c306" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Product Reference" doc:id="feaa6505-0803-4a79-b1af-9e5ee711e01e" processor="flow-ref" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="88202de7-edd5-4fff-aebe-408d03d1a17f" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Difference Reference" doc:id="fc396249-fbe7-4f53-9fe7-6e3ed0778a6c" processor="flow-ref" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="48c78abb-6092-4bff-8036-07f4d5d9d4c9" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify AggregatedData" doc:id="32a705e2-d505-45db-be0e-69983cf9eb1c" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="d0f3ad03-2e0a-435e-8439-788d99428b99" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+</mule>

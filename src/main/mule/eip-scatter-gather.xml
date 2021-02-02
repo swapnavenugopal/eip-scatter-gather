@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="71066490-6e60-4e50-bb25-1b9c2db5780a" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="eip-scatter-gatherFlow" doc:id="5c90c764-13d1-4dda-a88b-b9753a00a3e0" >
+		<http:listener doc:name="POST / scattergather" doc:id="b3b7cead-ee5e-433a-8bef-d60109eadfd3" config-ref="HTTP_Listener_config" path="/eip/scattergather"/>
+		<logger level="INFO" doc:name="Log input paylaod" doc:id="f949423a-0fc0-4940-80d7-025eb9e1a7f5" message="#[payload]"/>
+		<scatter-gather doc:name="Scatter-Gather" doc:id="919fbb25-8f81-49a8-8868-3d05137695a3" >
+			<route >
+				<try doc:name="Try" doc:id="0a1402fd-5610-4bd5-977c-04c7fb9037da" >
+					<flow-ref doc:name="Add Reference" doc:id="d84fc701-44f1-4683-b667-8ce82a72c306" name="AddSub_Flow" />
+					<error-handler >
+						<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="c0010a8e-9516-44c1-8200-6331ec6ffaf9" >
+							<logger level="INFO" doc:name="Logger" doc:id="7ad077dc-b276-4885-bba1-b99c5be450ed" />
+						</on-error-continue>
+					</error-handler>
+				</try>
+			</route>
+			<route >
+				<try doc:name="Try" doc:id="604518ac-0b93-4aab-a796-3b3dc076caf3" >
+					<flow-ref doc:name="Difference Reference" doc:id="48c78abb-6092-4bff-8036-07f4d5d9d4c9" name="DifferenceSub_Flow" />
+					<error-handler >
+						<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="a90c73ec-eecc-4aea-8bd1-655c9dae7255" >
+							<logger level="INFO" doc:name="Logger" doc:id="41b821bf-3b5c-407e-88dc-ddd5c09b796d" />
+						</on-error-continue>
+					</error-handler>
+				</try>
+			</route>
+			<route >
+				<try doc:name="Try" doc:id="94ed249a-82d6-41f6-8693-0263c6bba1be" >
+					<flow-ref doc:name="Product Reference" doc:id="88202de7-edd5-4fff-aebe-408d03d1a17f" name="ProductSub_Flow" />
+					<error-handler >
+						<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="16d0df7b-1c94-45c5-9bb6-58b442446ba9" >
+							<logger level="INFO" doc:name="Logger" doc:id="e605f6f9-e953-4eba-92f7-687212ef5067" />
+						</on-error-continue>
+					</error-handler>
+				</try>
+			</route>
+		</scatter-gather>
+		<logger level="INFO" doc:name="ScatterGatherOutput" doc:id="2556668f-606e-4b35-a744-b7a9fb73a51d" />
+		<ee:transform doc:name="AggregatedData" doc:id="d0f3ad03-2e0a-435e-8439-788d99428b99" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+flatten(payload..payload)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Log AggregatedData" doc:id="f3e13ebc-a466-4d4b-9baa-7d82eb8cd095" />
+	</flow>
+	<sub-flow name="AddSub_Flow" doc:id="4c22ea3e-e475-4d74-8003-d02506afcb6b" >
+		<ee:transform doc:name="Addition" doc:id="6eb112ea-f86b-4173-b0d4-a4f45e40df76" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+	addition: payload.Number1+payload.Number2
+	
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="DifferenceSub_Flow" doc:id="2f72200a-457e-4cd0-832d-ff78587421b2" >
+		<ee:transform doc:name="Subtract" doc:id="b898b4fc-e50d-4b8a-9f2d-7136e33caf95" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+Subtraction: payload.Number1-payload.Number2]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="ProductSub_Flow" doc:id="b106cd6d-a5f6-4679-9696-ca975e37785c" >
+		<ee:transform doc:name="Multiplication" doc:id="757e2651-1790-4d10-9fd7-51de05f2ea74" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+multiplication: payload.Number1*payload.Number2]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="Numbers" format="json">
+      <types:shape format="weave" example="examples/Numbers.json"><![CDATA[%dw 2.0
+
+type Numbers = {|
+  Number1: Number {"typeId": "int"}, 
+  Number2: Number {"typeId": "int"}
+|} {"example": "{\\\"Number1\\\":4,\\\"Number2\\\":2}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#919fbb25-8f81-49a8-8868-3d05137695a3">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="Numbers"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#6eb112ea-f86b-4173-b0d4-a4f45e40df76">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="Numbers"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#b898b4fc-e50d-4b8a-9f2d-7136e33caf95">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="Numbers"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#757e2651-1790-4d10-9fd7-51de05f2ea74">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="Numbers"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
